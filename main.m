@@ -88,8 +88,6 @@ addpath('ImageMatching'); % change the path here if needed
 img1 = rgb2gray(imread('Images/Img_1.jpg'));
 img2 = rgb2gray(imread('Images/Img_2.jpg'));
 
-%img1 = rgb2gray(imread('OtherPairs/Img3.jpeg'));
-%img2 = rgb2gray(imread('OtherPairs/Img4.jpeg'));
 
 img1 = imresize(img1, 0.5);
 img2 = imresize(img2, 0.5);

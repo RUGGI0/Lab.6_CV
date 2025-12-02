@@ -3,12 +3,12 @@ function [bestF, consensus, outliers] = ransacF(P1, P2, th)
     % note: P1 and P2 must be in homogeneous coordinates, one point in each
     % column
     ii = 0;
-    iter = 2000;
+    iter = 1000;
     max_iter = 2000;
     N = size(P1, 2);
 
     bestF = zeros(3, 3);
-    bestNInlier = 0.8;
+    bestNInlier = 0.7;
     p = 0.999;
 
     consensus = [];
