@@ -1,31 +1,44 @@
 %% Part 1: estimation of the fundamental matrix with manually selected correspondences
 
 % Load images
-img1 = imread('Rubik/Rubik1.pgm');
-img2 = imread('Rubik/Rubik2.pgm');
+rub1 = imread('Rubik/Rubik1.pgm');
+rub2 = imread('Rubik/Rubik2.pgm');
+mire1 = imread('Mire/Mire1.pgm');
+mire2 = imread('Mire/Mire2.pgm');
 
 % Load points
-P1orig = load('Rubik/Rubik1.points');
-P2orig = load('Rubik/Rubik2.points');
+P1origRub = load('Rubik/Rubik1.points');
+P2origRub = load('Rubik/Rubik2.points');
+P1origMire = load('Mire/Mire1.points');
+P2origMire = load('Mire/Mire2.points');
 
-n = size(P1orig,1);
+nRub = size(P1origRub,1);
+nMire = size(P1origMire,1);
 
 % Add the third component to work in homogeneous coordinates
-P1 = [P1orig'; ones(1,n)];
-P2 = [P2orig'; ones(1,n)];
+P1rub = [P1origRub'; ones(1,nRub)];
+P2rub = [P2origRub'; ones(1,nRub)];
+P1mire = [P1origMire'; ones(1,nMire)];
+P2mire = [P2origMire'; ones(1,nMire)];
                     
 %8-points algorithm
-F = EightPointsAlgorithm(P1, P2);
+Frub = EightPointsAlgorithm(P1rub, P2rub);
+Fmire = EightPointsAlgorithm(P1mire, P2mire);
 %8-points algorithm with normalization
-Fn = EightPointsAlgorithmN(P1, P2);
+FNrub = EightPointsAlgorithmN(P1rub, P2rub);
+FNmire = EightPointsAlgorithmN(P1mire, P2mire);
 
 %Evaluate the error
-Error(F, P1, P2);
-Error(Fn, P1, P2);
+Error(Frub, P1rub, P2rub);
+Error(FNrub, P1rub, P2rub);
+Error(Fmire, P1mire, P2mire);
+Error(FNmire, P1mire, P2mire);
 
 % Visualize the epipolar lines
-visualizeEpipolarLines(img1, img2, F, P1orig, P2orig, 1);
-visualizeEpipolarLines(img1, img2, Fn, P1orig, P2orig, 2);
+visualizeEpipolarLines(rub1, rub2, Frub, P1origRub, P2origRub, 1);
+visualizeEpipolarLines(rub1, rub2, FNrub, P1origRub, P2origRub, 2);
+visualizeEpipolarLines(mire1, mire2, Fmire, P1origMire, P2origMire, 3);
+visualizeEpipolarLines(mire1, mire2, FNmire, P1origMire, P2origMire, 4);
 
 %% Part 2: assessing the use of RANSAC 
 clc, clear;
